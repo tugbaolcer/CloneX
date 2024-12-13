@@ -1,4 +1,4 @@
-package com.tugbaolcer.baseapp.base
+package com.tugbaolcer.clonex.base.component
 
 import android.view.View
 
