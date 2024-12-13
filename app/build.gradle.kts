@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.org.jetbrains.kotlin.kapt)
+    id ("kotlin-parcelize")
 }
 
 android {
@@ -33,6 +35,16 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    kapt {
+        correctErrorTypes = true
+    }
+
+    buildFeatures {
+        buildConfig = true
+        viewBinding = true
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -42,6 +54,26 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
+    //Lifecycle
+    implementation(libs.lifecycle.viewmodel)
+    implementation(libs.lifecycle.livedata)
+    implementation(libs.lifecycle.runtime)
+
+    //Networking and Data Serialization
+    implementation(libs.retrofit)
+    implementation(libs.gson)
+    implementation(libs.retrofit.rxjava)
+    implementation(libs.retrofit.converter.moshi)
+    implementation(libs.okhttp.logging)
+
+    //Dagger
+    implementation(libs.dagger.android)
+    implementation(libs.dagger.android.support)
+    kapt (libs.dagger.android.processor)
+    kapt (libs.dagger.compiler)
+
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
