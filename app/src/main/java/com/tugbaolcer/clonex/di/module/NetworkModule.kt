@@ -1,19 +1,19 @@
 package com.tugbaolcer.clonex.di.module
 
-import android.app.ActivityManager
-import android.content.Context
 import com.tugbaolcer.clonex.BuildConfig
 import com.tugbaolcer.clonex.network.AppApi
 import com.tugbaolcer.clonex.utils.BASE_URL
+import com.tugbaolcer.clonex.utils.TYPE_CULTURE_TR
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+
 
 @Module
 class NetworkModule {
@@ -32,14 +32,22 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAuthInterceptor(context: Context, controllerName: String): Interceptor {
+    fun provideAuthInterceptor(): Interceptor {
         return Interceptor { chain ->
             var request = chain.request()
-            context.apply {
-                request = request.newBuilder().build()
-            }
-            val response = chain.proceed(request)
-            return@Interceptor response
+
+            val url = request.url.newBuilder()
+                .addQueryParameter("language", TYPE_CULTURE_TR)
+                .build()
+
+            val requestBuilder = request.newBuilder()
+                .url(url)
+                .addHeader("Authorization", BuildConfig.API_KEY)
+                .addHeader("accept", "application/json")
+
+            request = requestBuilder.build()
+
+            return@Interceptor chain.proceed(request)
         }
 
     }
@@ -47,7 +55,6 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideRetrofitInterface(
-        context: Context,
         authInterceptor: Interceptor,
         loggingInterceptor: HttpLoggingInterceptor
     ): AppApi {
@@ -61,17 +68,9 @@ class NetworkModule {
                     .addInterceptor(loggingInterceptor)
                     .build()
             )
-            .addConverterFactory(MoshiConverterFactory.create())
+
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(AppApi::class.java)
     }
-
-
-    @Provides
-    fun provideControllerName(context: Context): String {
-        val mgr = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        val tasks = mgr.appTasks
-        return if (tasks != null && tasks.isNotEmpty()) tasks.first().taskInfo.topActivity!!.className else context.javaClass.simpleName
-    }
-
 }

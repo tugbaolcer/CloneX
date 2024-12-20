@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -49,7 +52,31 @@ abstract class CloneXBaseActivity<VM : CloneXBaseViewModel, B : ViewDataBinding>
         bindingData()
         init()
         initTopBar()
-        retrieveNewData()
+
+        lifecycleScope.launch {
+            viewModel.uiState.collectLatest { state ->
+                when (state) {
+                    is UIState.SuccessResult -> {
+                        // Default UI state
+                    }
+                    is UIState.Loading -> {
+                        toggleLoadingIndicator(isLoading = true)
+                    }
+                    is UIState.ErrorResult -> {
+                        toggleLoadingIndicator(isLoading = false)
+                        showError(state.message)
+                    }
+                }
+            }
+        }
+    }
+
+    open fun showError(message: String?) {
+        // Default error handling (can be overridden)
+    }
+
+    open fun toggleLoadingIndicator(isLoading: Boolean) {
+        // Default loading indicator toggle (can be overridden)
     }
 
     override fun androidInjector(): AndroidInjector<Any> {

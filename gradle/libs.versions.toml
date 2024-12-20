@@ -20,6 +20,8 @@ lifecycle = "2.8.6"
 gson = "2.11.0"
 retrofit = "2.11.0"
 okhttp = "4.12.0"
+moshi = "1.15.0"
+converterGson = "2.9.0"
 
 # Dependency Injection
 di = "2.51.1"
@@ -44,7 +46,7 @@ lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-kt
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-rxjava = { module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "retrofit" }
-retrofit-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 okhttp-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 
 # Dependency Injection
