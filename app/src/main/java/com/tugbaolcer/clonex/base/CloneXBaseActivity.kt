@@ -7,16 +7,19 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.tugbaolcer.clonex.R
+import com.tugbaolcer.clonex.utils.ProgressDialog
+import com.tugbaolcer.clonex.utils.showErrorAlert
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-abstract class CloneXBaseActivity<VM : CloneXBaseViewModel, B : ViewDataBinding> : AppCompatActivity(),
+abstract class CloneXBaseActivity<VM : CloneXBaseViewModel, B : ViewDataBinding> :
+    AppCompatActivity(),
     HasAndroidInjector {
 
     @Inject
@@ -39,6 +42,8 @@ abstract class CloneXBaseActivity<VM : CloneXBaseViewModel, B : ViewDataBinding>
 
     private var savedInstanceState: Bundle? = null
 
+    private var progressDialog: ProgressDialog? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -49,34 +54,28 @@ abstract class CloneXBaseActivity<VM : CloneXBaseViewModel, B : ViewDataBinding>
 
         viewModel = ViewModelProvider(this, viewModelFactory)[viewModelClass]
 
+        progressDialog = ProgressDialog(this)
+
+        lifecycleScope.launch {
+            viewModel.progressVisibility.collect { isVisible ->
+                if (isVisible) progressDialog?.show()
+                else progressDialog?.dismiss()
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.errorMessage.collect { errorMessage ->
+                errorMessage?.let { message ->
+                    showMessageOnRetrieveError(message)
+                    viewModel.clearErrorMessage()
+                }
+            }
+        }
+
         bindingData()
         init()
         initTopBar()
 
-        lifecycleScope.launch {
-            viewModel.uiState.collectLatest { state ->
-                when (state) {
-                    is UIState.SuccessResult -> {
-                        // Default UI state
-                    }
-                    is UIState.Loading -> {
-                        toggleLoadingIndicator(isLoading = true)
-                    }
-                    is UIState.ErrorResult -> {
-                        toggleLoadingIndicator(isLoading = false)
-                        showError(state.message)
-                    }
-                }
-            }
-        }
-    }
-
-    open fun showError(message: String?) {
-        // Default error handling (can be overridden)
-    }
-
-    open fun toggleLoadingIndicator(isLoading: Boolean) {
-        // Default loading indicator toggle (can be overridden)
     }
 
     override fun androidInjector(): AndroidInjector<Any> {
@@ -88,5 +87,13 @@ abstract class CloneXBaseActivity<VM : CloneXBaseViewModel, B : ViewDataBinding>
             finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun showMessageOnRetrieveError(errorPair: Pair<Int?, String?>) {
+        val errorMessage = when {
+            errorPair.first == 500 -> getString(R.string.Common_Request_ErrorMessage)
+            else -> errorPair.second ?: getString(R.string.Common_Request_ErrorMessage)
+        }
+        showErrorAlert(errorMessage)
     }
 }

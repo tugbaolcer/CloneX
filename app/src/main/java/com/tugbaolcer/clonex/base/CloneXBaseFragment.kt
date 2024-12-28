@@ -5,12 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.tugbaolcer.clonex.utils.ProgressDialog
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 abstract class CloneXBaseFragment<VM : CloneXBaseViewModel, B : ViewDataBinding> : Fragment() {
@@ -29,7 +31,7 @@ abstract class CloneXBaseFragment<VM : CloneXBaseViewModel, B : ViewDataBinding>
 
     abstract val viewModelClass: Class<VM>
 
-    private var progressDialog: ProgressBar? = null
+    private var progressDialog: ProgressDialog? = null
 
     protected lateinit var binding: B
 
@@ -57,6 +59,15 @@ abstract class CloneXBaseFragment<VM : CloneXBaseViewModel, B : ViewDataBinding>
             init()
             initTopBar()
             retrieveData()
+
+            progressDialog = ProgressDialog(requireContext())
+
+            lifecycleScope.launch {
+                viewModel.progressVisibility.collect { isVisible ->
+                    if (isVisible) progressDialog?.show()
+                    else progressDialog?.dismiss()
+                }
+            }
 
         } else {
             Log.d("Fragment", "$javaClass Fragment is not added.")

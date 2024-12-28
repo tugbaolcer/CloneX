@@ -27,10 +27,9 @@ class MainActivity : CloneXBaseActivity<MainViewModel, ActivityMainBinding>() {
     override fun initTopBar(title: Int?) {}
 
     override fun retrieveNewData() {
-        viewModel.getGenreMovieList()
-        lifecycleScope.launch {
-            viewModel.genreMovieDataList.collect { items ->
-                viewModel.genresMovieAdapter.setItems(items.toMutableList())
+        viewModel.getGenreMovieList{
+            lifecycleScope.launch {
+                viewModel.genresMovieAdapter.setItems(it)
             }
         }
     }

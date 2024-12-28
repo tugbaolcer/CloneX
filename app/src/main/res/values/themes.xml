@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.CloneX" parent="Base.Theme.CloneX" />
+
+    <style name="WhiteSemiBoldTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/montserrat_semibold</item>
+    </style>
 </resources>

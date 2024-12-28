@@ -1,6 +1,7 @@
 package com.tugbaolcer.clonex
 
 import android.app.Application
+import androidx.appcompat.app.AlertDialog
 import com.tugbaolcer.clonex.di.component.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -9,6 +10,10 @@ import javax.inject.Inject
 
 
 class CloneXApp : Application(), HasAndroidInjector {
+
+    companion object {
+        var mAlertDialog: AlertDialog? = null
+    }
 
     override fun androidInjector(): AndroidInjector<Any> {
         return dispatchingAndroidInjector

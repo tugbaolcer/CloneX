@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CloneX</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor</string>
+
+
+    <string name="Common.Request.ErrorMessage">Bir hatayla karşılaşıldı</string>
 </resources>
