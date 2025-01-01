@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.tugbaolcer.clonex.di.ViewModelFactory
 import com.tugbaolcer.clonex.ui.MainViewModel
+import com.tugbaolcer.clonex.ui.onboarding.OnboardingViewModel
+import com.tugbaolcer.clonex.ui.onboarding.TabOnBoardingViewModel
 import com.tugbaolcer.clonex.ui.splash.SplashViewModel
 import dagger.Binds
 import dagger.Module
@@ -25,4 +27,14 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SplashViewModel::class)
     abstract fun vmSplash(viewModel: SplashViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(OnboardingViewModel::class)
+    abstract fun vmOnboarding(viewModel: OnboardingViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TabOnBoardingViewModel::class)
+    abstract fun vmTabOnBoarding(viewModel: TabOnBoardingViewModel): ViewModel
 }

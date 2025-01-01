@@ -12,6 +12,7 @@ import com.tugbaolcer.clonex.R
 import com.tugbaolcer.clonex.base.CloneXBaseActivity
 import com.tugbaolcer.clonex.databinding.ActivitySplahBinding
 import com.tugbaolcer.clonex.ui.MainActivity
+import com.tugbaolcer.clonex.ui.onboarding.OnboardingActivity
 
 class SplashActivity : CloneXBaseActivity<SplashViewModel, ActivitySplahBinding>() {
 
@@ -59,7 +60,7 @@ class SplashActivity : CloneXBaseActivity<SplashViewModel, ActivitySplahBinding>
             }
 
             override fun onAnimationEnd(animation: Animator) {
-                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                startActivity(Intent(this@SplashActivity, OnboardingActivity::class.java))
             }
 
             override fun onAnimationCancel(animation: Animator) {}

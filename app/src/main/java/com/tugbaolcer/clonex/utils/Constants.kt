@@ -7,3 +7,5 @@ const val ALERT_ERROR = 1
 const val ALERT_WARNING = 2
 const val ALERT_INFORMATION = 3
 const val ALERT_SUCCESSFUL = 4
+
+const val PAGE_TYPE_ONBOARDING = "PAGE_TYPE_ONBOARDING"

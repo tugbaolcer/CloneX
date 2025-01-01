@@ -2,6 +2,21 @@
     <string name="app_name">CloneX</string>
     <string name="lorem_ipsum">Lorem ipsum dolor</string>
 
+    <string name="Button.Label.SignUp">Oturum Aç</string>
 
     <string name="Common.Request.ErrorMessage">Bir hatayla karşılaşıldı</string>
+
+    <string name="Menu.Label.Privacy">Gizlilik</string>
+    <string name="Menu.Label.Help">Yardım</string>
+
+    <string name="Onboarding.Label">Bir Netflix hesabı oluşturmak ve diğer işlemleri yapmak için netflix.com/more adresine gidin. </string>
+
+    <string name="Onboarding.Label.Title1">İstediğiniz her yerde izleyin</string>
+    <string name="Onboarding.Label.Title2">Tüm hayranlara uygun plan seçenkleri</string>
+    <string name="Onboarding.Label.Title3">İstediğiniz zaman çevrimiçi olarak iptal edin</string>
+    <string name="Onboarding.Label.Title4">Nasıl izleyebilirim?</string>
+    <string name="Onboarding.Label.Desc1">Telefonda, tablette, dizüstü bilgisayarda ve TVde izleyin</string>
+    <string name="Onboarding.Label.Desc2">Küçük ücret. Büyük eğlence</string>
+    <string name="Onboarding.Label.Desc3">Bugün katılın. Beklemenize gerek yok.</string>
+    <string name="Onboarding.Label.Desc4">Netflix üyesi olduktan sonra içerikleri bu uygulamadan izleyebilirsiniz.</string>
 </resources>

@@ -3,11 +3,13 @@ package com.tugbaolcer.clonex.base
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.tugbaolcer.clonex.R
+import com.tugbaolcer.clonex.utils.AppTopBar
 import com.tugbaolcer.clonex.utils.ProgressDialog
 import com.tugbaolcer.clonex.utils.showErrorAlert
 import dagger.android.AndroidInjection
@@ -75,6 +77,15 @@ abstract class CloneXBaseActivity<VM : CloneXBaseViewModel, B : ViewDataBinding>
         bindingData()
         init()
         initTopBar()
+
+        /**
+         * TopBar ile StatusBar rengi her zaman aynı olacak.
+         */
+        AppTopBar.apply {
+            topBarBackgroundColor.observe(this@CloneXBaseActivity) {
+                window.statusBarColor = ContextCompat.getColor(this@CloneXBaseActivity, it)
+            }
+        }
 
     }
 
