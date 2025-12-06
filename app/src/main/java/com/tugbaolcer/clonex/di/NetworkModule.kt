@@ -1,22 +1,26 @@
-package com.tugbaolcer.clonex.di.module
+package com.tugbaolcer.clonex.di
 
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.tugbaolcer.clonex.BuildConfig
 import com.tugbaolcer.clonex.network.AppApi
 import com.tugbaolcer.clonex.utils.BASE_URL
 import com.tugbaolcer.clonex.utils.TYPE_CULTURE_TR
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-
 @Module
-class NetworkModule {
+@InstallIn(SingletonComponent::class)
+object NetworkModule {
 
     @Provides
     @Singleton
@@ -52,11 +56,21 @@ class NetworkModule {
 
     }
 
+    /** data classı desteği */
+    @Provides
+    @Singleton
+    fun provideMoshi(): Moshi {
+        return Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+    }
+
     @Singleton
     @Provides
     fun provideRetrofitInterface(
         authInterceptor: Interceptor,
-        loggingInterceptor: HttpLoggingInterceptor
+        loggingInterceptor: HttpLoggingInterceptor,
+        moshi: Moshi
     ): AppApi {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -69,7 +83,7 @@ class NetworkModule {
                     .build()
             )
 
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
             .create(AppApi::class.java)
     }

@@ -3,6 +3,7 @@ package com.tugbaolcer.clonex.utils
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toolbar
 import androidx.lifecycle.MutableLiveData
 import com.tugbaolcer.clonex.R
@@ -47,6 +48,14 @@ class AppTopBar : Toolbar {
         )
     }
 
+    fun setupWithLogin() {
+        setup(
+            pageType = PAGE_TYPE_LOGIN,
+            onMenuButtonClick = null,
+            onRightButtonClick = null
+        )
+    }
+
     fun setup(
         pageType: String,
         onMenuButtonClick: (() -> Unit)? = null,
@@ -55,6 +64,9 @@ class AppTopBar : Toolbar {
         topBarBinding.apply {
 
             if (pageType == PAGE_TYPE_ONBOARDING) {
+                groupOnboarding.visibility = View.VISIBLE
+                groupLogin.visibility = View.GONE
+
                 dropdownMenu.setOnSingleClickListener {
                     onMenuButtonClick?.invoke()
                 }
@@ -63,6 +75,9 @@ class AppTopBar : Toolbar {
                     onRightButtonClick?.invoke()
                 }
 
+            } else {
+                groupOnboarding.visibility = View.GONE
+                groupLogin.visibility = View.VISIBLE
             }
 
         }

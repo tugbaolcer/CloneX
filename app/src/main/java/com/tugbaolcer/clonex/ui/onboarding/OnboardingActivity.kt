@@ -15,13 +15,15 @@ import androidx.viewpager2.widget.ViewPager2
 import com.tugbaolcer.clonex.R
 import com.tugbaolcer.clonex.base.CloneXBaseActivity
 import com.tugbaolcer.clonex.databinding.ActivityOnboardingBinding
-import com.tugbaolcer.clonex.ui.MainActivity
+import com.tugbaolcer.clonex.ui.login.LoginActivity
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * created view by Tugba OLCER
  * date: 1.1.25
  */
 
+@AndroidEntryPoint
 class OnboardingActivity : CloneXBaseActivity<OnboardingViewModel, ActivityOnboardingBinding>() {
     override val layoutResourceId: Int
         get() = R.layout.activity_onboarding
@@ -45,7 +47,7 @@ class OnboardingActivity : CloneXBaseActivity<OnboardingViewModel, ActivityOnboa
                 popup.show()
             },
             onRightButtonClick = {
-                loginLauncher.launch(Intent(this@OnboardingActivity, MainActivity::class.java))
+                loginLauncher.launch(Intent(this@OnboardingActivity, LoginActivity::class.java))
             }
         )
     }

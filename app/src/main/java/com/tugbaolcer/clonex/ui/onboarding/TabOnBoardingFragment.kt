@@ -4,12 +4,14 @@ import com.tugbaolcer.clonex.R
 import com.tugbaolcer.clonex.base.CloneXBaseFragment
 import com.tugbaolcer.clonex.databinding.FragmentTabOnBoardingBinding
 import com.tugbaolcer.clonex.utils.withArgs
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * created view by Tugba OLCER
  * date: 1.1.25
  */
 
+@AndroidEntryPoint
 class TabOnBoardingFragment : CloneXBaseFragment<TabOnBoardingViewModel, FragmentTabOnBoardingBinding>() {
     override val layoutResourceId: Int
         get() = R.layout.fragment_tab_on_boarding

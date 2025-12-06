@@ -1,7 +1,9 @@
 package com.tugbaolcer.clonex.base
 
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.tugbaolcer.clonex.network.AppApi
 import com.tugbaolcer.clonex.network.model.ApiResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +15,7 @@ import retrofit2.Response
 import java.io.IOException
 
 
-abstract class CloneXBaseViewModel : ViewModel() {
+abstract class CloneXBaseViewModel(val baseApi: AppApi) : ViewModel() {
 
     val progressVisibility = MutableStateFlow(false)
     val errorMessage = MutableStateFlow<Pair<Int, String>?>(null)

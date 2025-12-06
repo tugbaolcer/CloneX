@@ -98,3 +98,13 @@ fun setClickableText(textView: TextView, content: String) {
     textView.text = spannableString
     textView.movementMethod = android.text.method.LinkMovementMethod.getInstance()
 }
+
+@BindingAdapter("is_visible")
+fun setVisibility(view: View, visible: Boolean) {
+    view.visibility = if (visible) View.VISIBLE else View.INVISIBLE
+}
+
+@BindingAdapter("isEnabled")
+fun setButtonEnabled(button: View, isEnabled: Boolean?) {
+    button.isEnabled = isEnabled == true
+}

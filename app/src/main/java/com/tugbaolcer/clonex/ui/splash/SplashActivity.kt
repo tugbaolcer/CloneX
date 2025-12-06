@@ -8,12 +8,17 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import androidx.activity.enableEdgeToEdge
+import androidx.lifecycle.lifecycleScope
+import com.tugbaolcer.clonex.CloneXApp
 import com.tugbaolcer.clonex.R
 import com.tugbaolcer.clonex.base.CloneXBaseActivity
 import com.tugbaolcer.clonex.databinding.ActivitySplahBinding
 import com.tugbaolcer.clonex.ui.MainActivity
 import com.tugbaolcer.clonex.ui.onboarding.OnboardingActivity
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class SplashActivity : CloneXBaseActivity<SplashViewModel, ActivitySplahBinding>() {
 
     override val layoutResourceId: Int

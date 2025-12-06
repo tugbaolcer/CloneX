@@ -1,5 +1,8 @@
 package com.tugbaolcer.clonex.utils
 
+const val TOKEN_PREFS: String = "token.prefs.encrypted"
+
+
 const val BASE_URL = "https://api.themoviedb.org/3/"
 var TYPE_CULTURE_TR = "tr-TR"
 
@@ -9,3 +12,7 @@ const val ALERT_INFORMATION = 3
 const val ALERT_SUCCESSFUL = 4
 
 const val PAGE_TYPE_ONBOARDING = "PAGE_TYPE_ONBOARDING"
+const val PAGE_TYPE_LOGIN = "PAGE_TYPE_LOGIN"
+
+const val ACCESS_TOKEN = "ACCESS_TOKEN"
+const val REFRESH_TOKEN = "REFRESH_TOKEN"

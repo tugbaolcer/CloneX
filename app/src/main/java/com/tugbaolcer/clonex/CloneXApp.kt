@@ -2,32 +2,25 @@ package com.tugbaolcer.clonex
 
 import android.app.Application
 import androidx.appcompat.app.AlertDialog
-import com.tugbaolcer.clonex.di.component.DaggerAppComponent
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
-import javax.inject.Inject
+import com.tugbaolcer.clonex.utils.ACCESS_TOKEN
+import com.tugbaolcer.clonex.utils.REFRESH_TOKEN
+import com.tugbaolcer.clonex.utils.Utils
+import dagger.hilt.android.HiltAndroidApp
 
 
-class CloneXApp : Application(), HasAndroidInjector {
+@HiltAndroidApp
+class CloneXApp : Application() {
 
     companion object {
         var mAlertDialog: AlertDialog? = null
     }
 
-    override fun androidInjector(): AndroidInjector<Any> {
-        return dispatchingAndroidInjector
-    }
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-
-    override fun onCreate() {
-        super.onCreate()
-        DaggerAppComponent
-            .builder()
-            .application(this)
-            .build()
-            .inject(this)
+    fun saveToken(accessToken: String, refreshToken: String?) {
+        val tokenPrefs = Utils.getEncryptedTokenSharedPrefs(this.applicationContext)
+        tokenPrefs.edit().apply {
+            putString(ACCESS_TOKEN, accessToken)
+            putString(REFRESH_TOKEN, refreshToken)
+            apply()
+        }
     }
 }

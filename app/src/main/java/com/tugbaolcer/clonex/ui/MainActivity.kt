@@ -6,8 +6,11 @@ import com.tugbaolcer.clonex.base.CloneXBaseActivity
 import com.tugbaolcer.clonex.base.CloneXBaseRecyclerView
 import com.tugbaolcer.clonex.databinding.ActivityMainBinding
 import com.tugbaolcer.clonex.utils.ItemDecorationVertical
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : CloneXBaseActivity<MainViewModel, ActivityMainBinding>() {
     override val layoutResourceId: Int
         get() = R.layout.activity_main

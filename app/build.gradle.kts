@@ -3,8 +3,10 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.org.jetbrains.kotlin.kapt)
-    id ("kotlin-parcelize")
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.parcelize)
 }
 
 android {
@@ -35,21 +37,27 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
+
+    kotlin {
+        jvmToolchain(17)
     }
 
     kapt {
         correctErrorTypes = true
     }
 
+
     buildFeatures {
         buildConfig = true
         viewBinding = true
         dataBinding = true
+    }
+
+    hilt {
+        enableAggregatingTask = false
     }
 }
 
@@ -68,17 +76,21 @@ dependencies {
     implementation(libs.lifecycle.runtime)
 
     //Networking and Data Serialization
-    implementation(libs.retrofit)
     implementation(libs.gson)
-    implementation(libs.retrofit.rxjava)
-    implementation (libs.converter.gson)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.moshi)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
+    ksp(libs.moshi.kotlin.codegen)
+
 
     //Dagger
-    implementation(libs.dagger.android)
-    implementation(libs.dagger.android.support)
-    kapt (libs.dagger.android.processor)
-    kapt (libs.dagger.compiler)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    //Encryption
+    implementation(libs.security.crypto)
 
 
     testImplementation(libs.junit)

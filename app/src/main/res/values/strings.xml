@@ -3,8 +3,17 @@
     <string name="lorem_ipsum">Lorem ipsum dolor</string>
 
     <string name="Button.Label.SignUp">Oturum Aç</string>
+    <string name="Button.Label.SignUpUseCode">Oturum Açma Kodu Kullan</string>
 
     <string name="Common.Request.ErrorMessage">Bir hatayla karşılaşıldı</string>
+    <string name="Common.Label.Show">Göster</string>
+    <string name="Common.Label.Gone">Gizle</string>
+    <string name="Common.Label.Or">VEYA</string>
+    <string name="Common.Label.ForgetPassword">Parolamı Unuttum</string>
+    <string name="Common.Label.LoginInfoText">Oturum açma işlemi, robot olmadığınızı kanıtlamak için Google reCAPTCHA ile korunuyor. Daha fazla bilgi</string>
+
+    <string name="Input.Label.Email">E-posta veya telefon numarası</string>
+    <string name="Input.Label.Password">Parola</string>
 
     <string name="Menu.Label.Privacy">Gizlilik</string>
     <string name="Menu.Label.Help">Yardım</string>

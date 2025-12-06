@@ -3,6 +3,7 @@ package com.tugbaolcer.clonex.ui.onboarding
 import androidx.lifecycle.MutableLiveData
 import com.tugbaolcer.clonex.base.CloneXBaseViewModel
 import com.tugbaolcer.clonex.network.AppApi
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 /**
@@ -10,7 +11,8 @@ import javax.inject.Inject
  * date: 1.1.25
  */
 
-class TabOnBoardingViewModel @Inject constructor(private val api: AppApi)  : CloneXBaseViewModel() {
+@HiltViewModel
+class TabOnBoardingViewModel @Inject constructor(val api: AppApi) : CloneXBaseViewModel(api) {
     enum class OnBoardingType{
         STEP_ONE,
         STEP_TWO,

@@ -1,29 +1,35 @@
-package com.tugbaolcer.clonex.ui
+package com.tugbaolcer.clonex.ui.login
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.tugbaolcer.clonex.base.CloneXBaseRecyclerView
+import com.tugbaolcer.clonex.BuildConfig
 import com.tugbaolcer.clonex.base.CloneXBaseViewModel
-import com.tugbaolcer.clonex.model.GetGenresResponse
+import com.tugbaolcer.clonex.model.CreateLoginRequest
 import com.tugbaolcer.clonex.network.AppApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(val api: AppApi) : CloneXBaseViewModel(api) {
+class LoginViewModel @Inject constructor(val api: AppApi) : CloneXBaseViewModel(api) {
 
-    lateinit var genresMovieAdapter : CloneXBaseRecyclerView<GetGenresResponse.Genre>
+    val email = MutableLiveData<String>()
+    val password = MutableLiveData<String>()
 
-    fun getGenreMovieList(handleOnSuccess: (MutableList<GetGenresResponse.Genre>) -> Unit) {
+    fun onLoginClicked(){
         viewModelScope.launch {
-            networkCallAsFlow { api.fetchGenreMovieList() }
+            val response = CreateLoginRequest(
+                username = email.value!!,
+                password = password.value!!,
+                requestToken = BuildConfig.API_KEY
+            )
+            networkCallAsFlow { api.createLogin(response) }
                 .collect { result ->
                     handleApiResult(
                         apiResult = result,
                         onSuccess = { response ->
-                            val genres = response.genres
-                            handleOnSuccess(genres.toMutableList())
+
                         },
                         onError = { errorMessage ->
                             Log.e("LOG_DATA", "Error: $errorMessage")
@@ -32,6 +38,4 @@ class MainViewModel @Inject constructor(val api: AppApi) : CloneXBaseViewModel(a
                 }
         }
     }
-
-
 }

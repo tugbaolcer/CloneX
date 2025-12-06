@@ -12,4 +12,24 @@
         <item name="android:textColor">@color/white</item>
         <item name="fontFamily">@font/montserrat_semibold</item>
     </style>
+
+    <style name="FocusableTextInputLayoutStyle">
+        <item name="boxCollapsedPaddingTop">4dp</item>
+        <item name="boxBackgroundColor">@color/midnight_gray</item>
+        <item name="android:textColorHint">@color/lightest_gray</item>          <!-- resting -->
+        <item name="hintTextColor">@color/lightest_gray</item>                <!-- focused -->
+    </style>
+
+
+    <style name="FocusableEditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:inputType">textCapWords|textNoSuggestions</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:maxLength">50</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+    </style>
 </resources>

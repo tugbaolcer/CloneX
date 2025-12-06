@@ -12,52 +12,48 @@ import com.tugbaolcer.clonex.R
 import com.tugbaolcer.clonex.utils.AppTopBar
 import com.tugbaolcer.clonex.utils.ProgressDialog
 import com.tugbaolcer.clonex.utils.showErrorAlert
-import dagger.android.AndroidInjection
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 
 abstract class CloneXBaseActivity<VM : CloneXBaseViewModel, B : ViewDataBinding> :
-    AppCompatActivity(),
-    HasAndroidInjector {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+    AppCompatActivity() {
 
     protected abstract val layoutResourceId: Int
+    abstract val viewModelClass: Class<VM>
 
-    protected lateinit var viewModel: VM
+    protected val viewModel: VM by lazy {
+        ViewModelProvider(this)[viewModelClass]
+    }
 
     protected lateinit var binding: B
-    protected abstract fun init()
+
+    abstract fun init()
     abstract fun initTopBar(title: Int? = null)
     abstract fun retrieveNewData()
     abstract fun bindingData()
 
-    abstract val viewModelClass: Class<VM>
-
-    private var savedInstanceState: Bundle? = null
-
     private var progressDialog: ProgressDialog? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        this.savedInstanceState = savedInstanceState
 
         binding = DataBindingUtil.setContentView(this, layoutResourceId)
-
-        viewModel = ViewModelProvider(this, viewModelFactory)[viewModelClass]
-
         progressDialog = ProgressDialog(this)
 
+        observeBaseStates()
+
+        bindingData()
+        init()
+        initTopBar()
+
+        AppTopBar.apply {
+            topBarBackgroundColor.observe(this@CloneXBaseActivity) {
+                window.statusBarColor = ContextCompat.getColor(this@CloneXBaseActivity, it)
+            }
+        }
+    }
+
+    private fun observeBaseStates() {
         lifecycleScope.launch {
             viewModel.progressVisibility.collect { isVisible ->
                 if (isVisible) progressDialog?.show()
@@ -73,30 +69,10 @@ abstract class CloneXBaseActivity<VM : CloneXBaseViewModel, B : ViewDataBinding>
                 }
             }
         }
-
-        bindingData()
-        init()
-        initTopBar()
-
-        /**
-         * TopBar ile StatusBar rengi her zaman aynı olacak.
-         */
-        AppTopBar.apply {
-            topBarBackgroundColor.observe(this@CloneXBaseActivity) {
-                window.statusBarColor = ContextCompat.getColor(this@CloneXBaseActivity, it)
-            }
-        }
-
-    }
-
-    override fun androidInjector(): AndroidInjector<Any> {
-        return dispatchingAndroidInjector
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            finish()
-        }
+        if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
     }
 

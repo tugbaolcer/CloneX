@@ -14,5 +14,8 @@
     <color name="night_gray">#343844</color>
     <color name="border_red">#7f2329</color>
     <color name="light_gray">#98a2af</color>
+    <color name="midnight_gray">#333333</color>
+    <color name="lightest_gray">#b3b3b3</color>
+    <color name="dark_cherry">#5c0309</color>
 
 </resources>
