@@ -1,8 +1,10 @@
 package com.tugbaolcer.clonex.ui.login
 
+import android.content.Intent
 import com.tugbaolcer.clonex.R
 import com.tugbaolcer.clonex.base.CloneXBaseActivity
 import com.tugbaolcer.clonex.databinding.ActivityLoginBinding
+import com.tugbaolcer.clonex.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -15,7 +17,11 @@ class LoginActivity : CloneXBaseActivity<LoginViewModel, ActivityLoginBinding>()
     override val layoutResourceId: Int
         get() = R.layout.activity_login
 
-    override fun init() {}
+    override fun init() {
+        viewModel.loginSuccess.observe(this@LoginActivity){
+            openMainScreen()
+        }
+    }
 
     override fun initTopBar(title: Int?) {
         binding.layoutTopbar.setupWithLogin()
@@ -26,6 +32,11 @@ class LoginActivity : CloneXBaseActivity<LoginViewModel, ActivityLoginBinding>()
     override fun bindingData() {
         binding.vm = viewModel
         binding.lifecycleOwner = this
+    }
+
+    private fun openMainScreen() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     override val viewModelClass: Class<LoginViewModel>

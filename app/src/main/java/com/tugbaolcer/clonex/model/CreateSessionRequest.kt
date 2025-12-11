@@ -4,8 +4,6 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CreateLoginRequest(
-    @field:Json(name = "username") val username: String,
-    @field:Json(name = "password") val password: String,
+data class CreateSessionRequest(
     @field:Json(name = "request_token") val requestToken: String
 )

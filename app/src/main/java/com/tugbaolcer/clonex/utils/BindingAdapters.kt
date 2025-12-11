@@ -12,6 +12,8 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import com.tugbaolcer.clonex.R
 import com.tugbaolcer.clonex.ui.onboarding.TabOnBoardingViewModel
 
@@ -107,4 +109,23 @@ fun setVisibility(view: View, visible: Boolean) {
 @BindingAdapter("isEnabled")
 fun setButtonEnabled(button: View, isEnabled: Boolean?) {
     button.isEnabled = isEnabled == true
+}
+
+@BindingAdapter("text")
+fun setCustomEditText(view: CustomEditTextView, value: String?) {
+    if (view.inputText != value) {
+        view.setText(value ?: "")
+    }
+}
+
+@InverseBindingAdapter(attribute = "text")
+fun getCustomEditText(view: CustomEditTextView): String {
+    return view.inputText
+}
+
+@BindingAdapter("textAttrChanged")
+fun setCustomEditTextListener(view: CustomEditTextView, listener: InverseBindingListener) {
+    view.setOnTextChangeListener {
+        listener.onChange()
+    }
 }

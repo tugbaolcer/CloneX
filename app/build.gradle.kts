@@ -89,8 +89,9 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
-    //Encryption
-    implementation(libs.security.crypto)
+    // DataStore
+    implementation(libs.datastore.preferences)
+    implementation(libs.tink.android)
 
 
     testImplementation(libs.junit)

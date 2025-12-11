@@ -12,7 +12,7 @@
     <string name="Common.Label.ForgetPassword">Parolamı Unuttum</string>
     <string name="Common.Label.LoginInfoText">Oturum açma işlemi, robot olmadığınızı kanıtlamak için Google reCAPTCHA ile korunuyor. Daha fazla bilgi</string>
 
-    <string name="Input.Label.Email">E-posta veya telefon numarası</string>
+    <string name="Input.Label.UserName">Kullanıcı Adı</string>
     <string name="Input.Label.Password">Parola</string>
 
     <string name="Menu.Label.Privacy">Gizlilik</string>

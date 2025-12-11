@@ -18,8 +18,9 @@ okhttp = "5.3.2"
 gson = "2.13.2"
 moshi ="1.15.2"
 
-#Encryption
-encryptonVersion = "1.1.0-alpha06"
+# AndroidX DataStore ve Security
+datastore = "1.2.0"
+tink = "1.13.0"
 
 #Hilt
 hilt = "2.57.2"
@@ -52,8 +53,10 @@ okhttp-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 
-#Encryption
-security-crypto = { module = "androidx.security:security-crypto", version.ref ="encryptonVersion"}
+# DataStore
+datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
+tink-android = { module = "com.google.crypto.tink:tink-android", version.ref = "tink" }
+
 
 #Test
 junit = { group = "junit", name = "junit", version.ref = "junit" }

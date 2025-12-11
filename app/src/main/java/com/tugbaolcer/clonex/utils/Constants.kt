@@ -1,6 +1,9 @@
 package com.tugbaolcer.clonex.utils
 
+const val SESSION_PREFS: String = "sessionId.prefs.encrypted"
 const val TOKEN_PREFS: String = "token.prefs.encrypted"
+const val KEY_SESSION_ID: String = "key.session.id"
+
 
 
 const val BASE_URL = "https://api.themoviedb.org/3/"

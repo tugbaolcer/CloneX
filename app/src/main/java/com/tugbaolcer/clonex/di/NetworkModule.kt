@@ -4,6 +4,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.tugbaolcer.clonex.BuildConfig
 import com.tugbaolcer.clonex.network.AppApi
+import com.tugbaolcer.clonex.utils.ACCESS_TOKEN
 import com.tugbaolcer.clonex.utils.BASE_URL
 import com.tugbaolcer.clonex.utils.TYPE_CULTURE_TR
 import dagger.Module
@@ -40,9 +41,7 @@ object NetworkModule {
         return Interceptor { chain ->
             var request = chain.request()
 
-            val url = request.url.newBuilder()
-                .addQueryParameter("language", TYPE_CULTURE_TR)
-                .build()
+            val url = request.url.newBuilder().build()
 
             val requestBuilder = request.newBuilder()
                 .url(url)

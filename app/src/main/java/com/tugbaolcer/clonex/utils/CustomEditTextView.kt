@@ -6,14 +6,24 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.addTextChangedListener
 import com.tugbaolcer.clonex.R
 import com.tugbaolcer.clonex.databinding.LayoutCustomEditTextBinding
+import kotlin.toString
 
 class CustomEditTextView(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
 
     var binding = LayoutCustomEditTextBinding.inflate(LayoutInflater.from(context), this, true)
 
     private var isPasswordVisible = false
+    private var textChangeListener: ((String) -> Unit)? = null
+
+    fun setText(text: String) {
+        this.binding.etCustom.setText(text)
+    }
+
+    val inputText: String
+        get() = binding.etCustom.text.toString()
 
 
     init {
@@ -33,7 +43,11 @@ class CustomEditTextView(context: Context, attrs: AttributeSet) : ConstraintLayo
                             )
 
                         showPasswordButton.visibility =
-                            if (isShowButton) View.VISIBLE else View.GONE
+                            if (isShowButton) VISIBLE else GONE
+
+                        etCustom.addTextChangedListener {
+                            textChangeListener?.invoke(it.toString())
+                        }
 
 
                     } finally {
@@ -65,5 +79,9 @@ class CustomEditTextView(context: Context, attrs: AttributeSet) : ConstraintLayo
             }
             etCustom.setSelection(etCustom.text?.length ?: 0)
         }
+    }
+
+    fun setOnTextChangeListener(listener: (String) -> Unit) {
+        textChangeListener = listener
     }
 }
