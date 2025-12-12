@@ -84,13 +84,14 @@
             />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_login_code"
+            android:id="@+id/btn_register"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/Button.Label.SignUpUseCode"
+            android:text="@string/Button.Label.CreateAccount"
             android:background="@color/midnight_gray"
             android:textColor="@color/white"
+            android:onClick="@{() -> vm.onRegisterWithDeeplinkClicked()}"
             app:layout_constraintTop_toBottomOf="@id/tv_or"
             app:layout_constraintStart_toStartOf="@id/btn_login"
             app:layout_constraintEnd_toEndOf="@id/btn_login"/>
@@ -103,9 +104,9 @@
             android:layout_marginTop="16dp"
             android:text="@string/Common.Label.ForgetPassword"
             android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/btn_login_code"
-            app:layout_constraintStart_toStartOf="@id/btn_login_code"
-            app:layout_constraintEnd_toEndOf="@id/btn_login_code"
+            app:layout_constraintTop_toBottomOf="@id/btn_register"
+            app:layout_constraintStart_toStartOf="@id/btn_register"
+            app:layout_constraintEnd_toEndOf="@id/btn_register"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -119,8 +120,8 @@
             android:textSize="12sp"
             android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/tv_forget_password"
-            app:layout_constraintStart_toStartOf="@id/btn_login_code"
-            app:layout_constraintEnd_toEndOf="@id/btn_login_code"
+            app:layout_constraintStart_toStartOf="@id/btn_register"
+            app:layout_constraintEnd_toEndOf="@id/btn_register"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

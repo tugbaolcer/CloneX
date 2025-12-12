@@ -5,6 +5,7 @@ import com.tugbaolcer.clonex.R
 import com.tugbaolcer.clonex.base.CloneXBaseActivity
 import com.tugbaolcer.clonex.databinding.ActivityLoginBinding
 import com.tugbaolcer.clonex.ui.MainActivity
+import com.tugbaolcer.clonex.utils.CustomTabsHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -18,9 +19,7 @@ class LoginActivity : CloneXBaseActivity<LoginViewModel, ActivityLoginBinding>()
         get() = R.layout.activity_login
 
     override fun init() {
-        viewModel.loginSuccess.observe(this@LoginActivity){
-            openMainScreen()
-        }
+        observerViewModel()
     }
 
     override fun initTopBar(title: Int?) {
@@ -32,6 +31,16 @@ class LoginActivity : CloneXBaseActivity<LoginViewModel, ActivityLoginBinding>()
     override fun bindingData() {
         binding.vm = viewModel
         binding.lifecycleOwner = this
+    }
+
+    fun observerViewModel(){
+        viewModel.authUrl.observe(this) { url ->
+            CustomTabsHelper.openUrl(this@LoginActivity, url)
+        }
+
+        viewModel.loginSuccess.observe(this@LoginActivity){
+            openMainScreen()
+        }
     }
 
     private fun openMainScreen() {

@@ -4,7 +4,6 @@ import android.content.Context
 import android.text.InputType
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
 import com.tugbaolcer.clonex.R
@@ -16,6 +15,7 @@ class CustomEditTextView(context: Context, attrs: AttributeSet) : ConstraintLayo
     var binding = LayoutCustomEditTextBinding.inflate(LayoutInflater.from(context), this, true)
 
     private var isPasswordVisible = false
+
     private var textChangeListener: ((String) -> Unit)? = null
 
     fun setText(text: String) {
@@ -57,7 +57,17 @@ class CustomEditTextView(context: Context, attrs: AttributeSet) : ConstraintLayo
                 }
 
             setupButtonClickListener()
+
+            applyInitialPasswordState()
         }
+    }
+
+    private fun applyInitialPasswordState() {
+        binding.etCustom.inputType =
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+
+        binding.showPasswordButton.text =
+            context.getString(R.string.Common_Label_Show)
     }
 
     private fun setupButtonClickListener() {

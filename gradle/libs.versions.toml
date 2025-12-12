@@ -28,6 +28,8 @@ hilt = "2.57.2"
 #ksp
 ksp = "2.2.20-2.0.2"
 
+#Browser
+androidxBrowser = "1.8.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -56,6 +58,9 @@ hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.re
 # DataStore
 datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 tink-android = { module = "com.google.crypto.tink:tink-android", version.ref = "tink" }
+
+#Browser
+androidx-browser = { module = "androidx.browser:browser", version.ref = "androidxBrowser" }
 
 
 #Test

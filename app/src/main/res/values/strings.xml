@@ -3,7 +3,7 @@
     <string name="lorem_ipsum">Lorem ipsum dolor</string>
 
     <string name="Button.Label.SignUp">Oturum Aç</string>
-    <string name="Button.Label.SignUpUseCode">Oturum Açma Kodu Kullan</string>
+    <string name="Button.Label.CreateAccount">Hesap Oluştur</string>
 
     <string name="Common.Request.ErrorMessage">Bir hatayla karşılaşıldı</string>
     <string name="Common.Label.Show">Göster</string>

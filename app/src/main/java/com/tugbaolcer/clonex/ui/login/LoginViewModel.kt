@@ -18,10 +18,17 @@ class LoginViewModel @Inject constructor(
     private val dataStore: SecureDataStore
 ) : CloneXBaseViewModel(api) {
 
+    val requestToken = MutableLiveData<String>()
+
     val userName = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
     val loginSuccess = MutableLiveData<Unit>()
+    val authUrl = MutableLiveData<String>()
+
+    init {
+        createRequestToken()
+    }
 
 
     fun onLoginClicked() {
@@ -30,9 +37,15 @@ class LoginViewModel @Inject constructor(
                 setErrorMessage(Pair(-1, "Email ve şifre zorunlu"))
                 return@launch
             } else {
-                createRequestToken()
+                createLogin(requestToken)
             }
         }
+    }
+
+    fun onRegisterWithDeeplinkClicked(){
+        val redirectUrl = "clonex://callback"
+        authUrl.value =
+            "https://www.themoviedb.org/authenticate/$requestToken?redirect_to=$redirectUrl"
     }
 
 
@@ -42,8 +55,8 @@ class LoginViewModel @Inject constructor(
                 handleApiResult(
                     apiResult = result,
                     onSuccess = { data ->
-
-                        createLogin(data.requestToken)
+                        requestToken.value = data.requestToken
+                        Log.d("LOG_TOKEN", data.requestToken)
                     }
                 )
             }
@@ -51,12 +64,12 @@ class LoginViewModel @Inject constructor(
     }
 
 
-    private fun createLogin(requestToken: String) {
+    private fun createLogin(requestToken: MutableLiveData<String>) {
         viewModelScope.launch {
             val body = CreateLoginRequest(
                 username = userName.value!!,
                 password = password.value!!,
-                requestToken = requestToken
+                requestToken = requestToken.value!!
             )
 
             networkCallAsFlow { api.createLogin(body) }.collect { result ->

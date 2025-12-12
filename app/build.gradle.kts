@@ -93,6 +93,9 @@ dependencies {
     implementation(libs.datastore.preferences)
     implementation(libs.tink.android)
 
+    //Browser
+    implementation(libs.androidx.browser)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
