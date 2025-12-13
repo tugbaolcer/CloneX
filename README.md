@@ -1,8 +1,11 @@
-CloneX
-📱 CloneX Android Application
+# 🚀 CLONEX  
+## 📱 Android Application
+
 
 CloneX is an Android application developed using the TMDB (The Movie Database) API.
-The project is designed with modern Android development practices in mind.
+The project is designed with modern Android development practices in mind. The user interface of this application is inspired by the Netflix mobile app.
+The design is not a direct copy of Netflix; instead, it takes inspiration from its content presentation, visual hierarchy, and user experience approach to create an original interface.
+All UI components and implementations are custom-built for this project.
 
 🛠 Tech Stack
 
