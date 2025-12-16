@@ -20,7 +20,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.tugbaolcer.clonex.HiltTestRunner"
 
         val properties = Properties()
         properties.load(project.rootProject.file("local.properties").inputStream())
@@ -85,9 +85,13 @@ dependencies {
     ksp(libs.moshi.kotlin.codegen)
 
 
-    //Dagger
+    //Dagger/Hilt
     implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
+
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest(libs.hilt.compiler)
+
 
     // DataStore
     implementation(libs.datastore.preferences)
@@ -100,4 +104,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.espresso.intents)
+    androidTestImplementation(libs.mockwebserver)
+    implementation(libs.androidx.test.espresso.idling.resource)
+    androidTestImplementation(libs.okhttp.idling.resource)
 }
