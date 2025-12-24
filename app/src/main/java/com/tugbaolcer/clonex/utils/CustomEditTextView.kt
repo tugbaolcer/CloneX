@@ -10,68 +10,67 @@ import com.tugbaolcer.clonex.R
 import com.tugbaolcer.clonex.databinding.LayoutCustomEditTextBinding
 import kotlin.toString
 
-class CustomEditTextView(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
+class CustomEditTextView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null
+) : ConstraintLayout(context, attrs) {
 
-    var binding = LayoutCustomEditTextBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding =
+        LayoutCustomEditTextBinding.inflate(LayoutInflater.from(context), this, true)
 
+    private var isPasswordField = false
     private var isPasswordVisible = false
-
     private var textChangeListener: ((String) -> Unit)? = null
-
-    fun setText(text: String) {
-        this.binding.etCustom.setText(text)
-    }
 
     val inputText: String
         get() = binding.etCustom.text.toString()
 
-
     init {
-        binding.apply {
-            context.theme.obtainStyledAttributes(attrs, R.styleable.CustomEditTextView, 0, 0)
-                .let { typedArray ->
-                    try {
+        context.theme.obtainStyledAttributes(
+            attrs,
+            R.styleable.CustomEditTextView,
+            0,
+            0
+        ).apply {
+            try {
+                binding.tilCustom.hint =
+                    getString(R.styleable.CustomEditTextView_til_hint)
 
-                        val hintString =
-                            typedArray.getString(R.styleable.CustomEditTextView_til_hint)
-                        tilCustom.hint = hintString
+                isPasswordField = getBoolean(
+                    R.styleable.CustomEditTextView_til_show_password,
+                    false
+                )
 
-                        val isShowButton =
-                            typedArray.getBoolean(
-                                R.styleable.CustomEditTextView_til_show_password,
-                                false
-                            )
-
-                        showPasswordButton.visibility =
-                            if (isShowButton) VISIBLE else GONE
-
-                        etCustom.addTextChangedListener {
-                            textChangeListener?.invoke(it.toString())
-                        }
-
-
-                    } finally {
-                        root.invalidate()
-                        typedArray.recycle()
-                    }
-                }
-
-            setupButtonClickListener()
-
-            applyInitialPasswordState()
+                binding.showPasswordButton.visibility =
+                    if (isPasswordField) VISIBLE else GONE
+            } finally {
+                recycle()
+            }
         }
+
+        setupTextWatcher()
+        setupButtonClickListener()
+        applyInitialState()
     }
 
-    private fun applyInitialPasswordState() {
-        binding.etCustom.inputType =
-            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+    private fun applyInitialState() {
+        if (isPasswordField) {
+            // Başlangıçta gizli (noktalı)
+            binding.etCustom.inputType =
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
 
-        binding.showPasswordButton.text =
-            context.getString(R.string.Common_Label_Show)
+            binding.showPasswordButton.text =
+                context.getString(R.string.Common_Label_Show)
+        } else {
+            // Normal text
+            binding.etCustom.inputType = InputType.TYPE_CLASS_TEXT
+        }
     }
 
     private fun setupButtonClickListener() {
         binding.showPasswordButton.setOnClickListener {
+            if (!isPasswordField) return@setOnClickListener
+
             isPasswordVisible = !isPasswordVisible
             updatePasswordVisibility()
         }
@@ -81,17 +80,29 @@ class CustomEditTextView(context: Context, attrs: AttributeSet) : ConstraintLayo
         binding.apply {
             if (isPasswordVisible) {
                 etCustom.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                showPasswordButton.text = context.getString(R.string.Common_Label_Gone)
+                showPasswordButton.text =
+                    context.getString(R.string.Common_Label_Gone)
             } else {
                 etCustom.inputType =
                     InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                showPasswordButton.text = context.getString(R.string.Common_Label_Show)
+                showPasswordButton.text =
+                    context.getString(R.string.Common_Label_Show)
             }
             etCustom.setSelection(etCustom.text?.length ?: 0)
         }
     }
 
+    private fun setupTextWatcher() {
+        binding.etCustom.addTextChangedListener {
+            textChangeListener?.invoke(it.toString())
+        }
+    }
+
     fun setOnTextChangeListener(listener: (String) -> Unit) {
         textChangeListener = listener
+    }
+
+    fun setText(text: String) {
+        binding.etCustom.setText(text)
     }
 }
