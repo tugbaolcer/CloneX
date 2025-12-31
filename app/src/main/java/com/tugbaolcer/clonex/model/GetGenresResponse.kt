@@ -14,8 +14,7 @@ data class GetGenresResponse(
         val id: Int,
         val name: String
     ) : LayoutModel, Parcelable {
-        override fun layoutId(): Int {
-            return R.layout.item_genre_movie_list
-        }
+        override fun layoutId() = R.layout.item_genre_movie_list
+        override fun uniqueId() = id
     }
 }

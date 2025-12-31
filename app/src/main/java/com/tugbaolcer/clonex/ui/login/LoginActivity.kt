@@ -4,7 +4,7 @@ import android.content.Intent
 import com.tugbaolcer.clonex.R
 import com.tugbaolcer.clonex.base.CloneXBaseActivity
 import com.tugbaolcer.clonex.databinding.ActivityLoginBinding
-import com.tugbaolcer.clonex.ui.MainActivity
+import com.tugbaolcer.clonex.ui.main.MainActivity
 import com.tugbaolcer.clonex.utils.CustomTabsHelper
 import dagger.hilt.android.AndroidEntryPoint
 

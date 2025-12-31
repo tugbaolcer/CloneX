@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.tugbaolcer.clonex.R
 import com.tugbaolcer.clonex.base.CloneXBaseActivity
 import com.tugbaolcer.clonex.databinding.ActivitySplahBinding
-import com.tugbaolcer.clonex.ui.MainActivity
+import com.tugbaolcer.clonex.ui.main.MainActivity
 import com.tugbaolcer.clonex.ui.onboarding.OnboardingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
