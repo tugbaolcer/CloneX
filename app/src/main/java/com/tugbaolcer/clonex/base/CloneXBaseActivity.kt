@@ -1,9 +1,18 @@
 package com.tugbaolcer.clonex.base
 
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.Insets
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +23,11 @@ import com.tugbaolcer.clonex.utils.ProgressDialog
 import com.tugbaolcer.clonex.utils.showErrorAlert
 import kotlinx.coroutines.launch
 
+enum class ScreenMode {
+    EDGE_TO_EDGE,
+    FULLSCREEN,
+    NORMAL
+}
 
 abstract class CloneXBaseActivity<VM : CloneXBaseViewModel, B : ViewDataBinding> :
     AppCompatActivity() {
@@ -34,6 +48,8 @@ abstract class CloneXBaseActivity<VM : CloneXBaseViewModel, B : ViewDataBinding>
 
     private var progressDialog: ProgressDialog? = null
 
+    open val screenMode: ScreenMode = ScreenMode.EDGE_TO_EDGE
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,6 +61,8 @@ abstract class CloneXBaseActivity<VM : CloneXBaseViewModel, B : ViewDataBinding>
         bindingData()
         init()
         initTopBar()
+
+        setupScreenMode()
 
         AppTopBar.apply {
             topBarBackgroundColor.observe(this@CloneXBaseActivity) {
@@ -83,4 +101,36 @@ abstract class CloneXBaseActivity<VM : CloneXBaseViewModel, B : ViewDataBinding>
         }
         showErrorAlert(errorMessage)
     }
+
+    private fun setupScreenMode() {
+        when (screenMode) {
+            ScreenMode.EDGE_TO_EDGE -> {
+                enableEdgeToEdge()
+                ViewCompat.setOnApplyWindowInsetsListener(window.decorView) { view, insets ->
+                    val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                    onApplyInsets(view, systemBars)
+                    insets
+                }
+            }
+            ScreenMode.FULLSCREEN -> {
+                enableEdgeToEdge()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    window.setDecorFitsSystemWindows(false)
+                    window.insetsController?.let { controller ->
+                        controller.hide(WindowInsets.Type.systemBars())
+                        controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                    }
+                } else {
+                    @Suppress("DEPRECATION")
+                    window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+                }
+            }
+            ScreenMode.NORMAL -> {
+                // Standart sistem davranışı
+            }
+        }
+    }
+
+    open fun onApplyInsets(rootView: View, systemBars: Insets) {}
 }

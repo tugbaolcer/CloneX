@@ -11,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.lifecycleScope
 import com.tugbaolcer.clonex.R
 import com.tugbaolcer.clonex.base.CloneXBaseActivity
+import com.tugbaolcer.clonex.base.ScreenMode
 import com.tugbaolcer.clonex.databinding.ActivitySplahBinding
 import com.tugbaolcer.clonex.ui.main.MainActivity
 import com.tugbaolcer.clonex.ui.onboarding.OnboardingActivity
@@ -24,35 +25,14 @@ class SplashActivity : CloneXBaseActivity<SplashViewModel, ActivitySplahBinding>
     override val layoutResourceId: Int
         get() = R.layout.activity_splah
 
+    override val screenMode = ScreenMode.FULLSCREEN
+
     private lateinit var mediaPlayer: MediaPlayer
 
     override fun init() {
-        enableEdgeToEdge()
-        hideNavigationBar()
         setupMediaPlayer()
         setupLottieAnimation()
     }
-
-    private fun hideNavigationBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            // API 30 ve üzeri için WindowInsetsController kullanımı
-            window.setDecorFitsSystemWindows(false)
-            window.insetsController?.let { controller ->
-                controller.hide(WindowInsets.Type.systemBars()) // Status ve navigation bar'ı gizler
-                controller.systemBarsBehavior =
-                    WindowInsetsController.BEHAVIOR_DEFAULT // Uyarı olmadan kaydırma hareketine izin verir
-            }
-        } else {
-            // API 30'dan düşük seviyeler için eski yöntem
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility = (
-                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            or View.SYSTEM_UI_FLAG_FULLSCREEN
-                            or View.SYSTEM_UI_FLAG_IMMERSIVE
-                    )
-        }
-    }
-
 
     private fun setupMediaPlayer() {
         mediaPlayer = MediaPlayer.create(this, R.raw.effect)
