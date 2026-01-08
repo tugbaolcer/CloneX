@@ -19,3 +19,7 @@ const val PAGE_TYPE_LOGIN = "PAGE_TYPE_LOGIN"
 
 const val ACCESS_TOKEN = "ACCESS_TOKEN"
 const val REFRESH_TOKEN = "REFRESH_TOKEN"
+
+const val HOME ="HOME"
+const val NEW_POPULAR ="NEW_POPULAR"
+const val PROFILE ="PROFILE"
