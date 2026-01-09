@@ -8,17 +8,14 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.tugbaolcer.clonex.R
-import com.tugbaolcer.clonex.utils.AppTopBar
 import com.tugbaolcer.clonex.utils.ProgressDialog
 import com.tugbaolcer.clonex.utils.showErrorAlert
 import kotlinx.coroutines.launch
@@ -64,11 +61,6 @@ abstract class CloneXBaseActivity<VM : CloneXBaseViewModel, B : ViewDataBinding>
 
         setupScreenMode()
 
-        AppTopBar.apply {
-            topBarBackgroundColor.observe(this@CloneXBaseActivity) {
-                window.statusBarColor = ContextCompat.getColor(this@CloneXBaseActivity, it)
-            }
-        }
     }
 
     private fun observeBaseStates() {

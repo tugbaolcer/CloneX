@@ -3,11 +3,6 @@ package com.tugbaolcer.clonex.ui.splash
 import android.animation.Animator
 import android.content.Intent
 import android.media.MediaPlayer
-import android.os.Build
-import android.view.View
-import android.view.WindowInsets
-import android.view.WindowInsetsController
-import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.lifecycleScope
 import com.tugbaolcer.clonex.R
 import com.tugbaolcer.clonex.base.CloneXBaseActivity

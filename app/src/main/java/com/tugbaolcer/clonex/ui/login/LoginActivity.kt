@@ -23,7 +23,7 @@ class LoginActivity : CloneXBaseActivity<LoginViewModel, ActivityLoginBinding>()
     }
 
     override fun initTopBar(title: Int?) {
-        binding.layoutTopbar.setupWithLogin()
+        binding.layoutTopbar.setupLogin()
     }
 
     override fun retrieveNewData() {}

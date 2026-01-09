@@ -6,6 +6,7 @@ import com.tugbaolcer.clonex.base.CloneXBaseActivity
 import com.tugbaolcer.clonex.base.CloneXBaseRecyclerView
 import com.tugbaolcer.clonex.databinding.ActivityMainBinding
 import com.tugbaolcer.clonex.model.GetGenresResponse
+import com.tugbaolcer.clonex.utils.HomeTopBarContract
 import com.tugbaolcer.clonex.utils.ItemDecorationVertical
 import com.tugbaolcer.clonex.utils.NavigationTab
 import dagger.hilt.android.AndroidEntryPoint
@@ -83,7 +84,18 @@ class MainActivity : CloneXBaseActivity<MainViewModel, ActivityMainBinding>(), A
     }
 
     override fun initTopBar(title: Int?) {
-        binding.appTopBar.setupWithLogin()
+        binding.appTopBar.setupHome(
+            userName = "Tuğba",
+            contract = object : HomeTopBarContract {
+                override fun onSearchClicked() {
+
+                }
+
+                override fun onDownloadClicked() {
+
+                }
+            }
+        )
     }
 
     override fun retrieveNewData() {

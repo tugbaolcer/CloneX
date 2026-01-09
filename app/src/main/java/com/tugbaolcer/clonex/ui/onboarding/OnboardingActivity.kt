@@ -1,6 +1,5 @@
 package com.tugbaolcer.clonex.ui.onboarding
 
-import android.app.Activity
 import android.content.Intent
 import android.text.Html
 import android.view.MenuInflater
@@ -16,6 +15,7 @@ import com.tugbaolcer.clonex.R
 import com.tugbaolcer.clonex.base.CloneXBaseActivity
 import com.tugbaolcer.clonex.databinding.ActivityOnboardingBinding
 import com.tugbaolcer.clonex.ui.login.LoginActivity
+import com.tugbaolcer.clonex.utils.OnboardingTopBarContract
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -39,15 +39,17 @@ class OnboardingActivity : CloneXBaseActivity<OnboardingViewModel, ActivityOnboa
     }
 
     override fun initTopBar(title: Int?) {
-        binding.layoutTopbar.setupWithOnboarding(
-            onMenuButtonClick = {
-                val popup = PopupMenu(this, binding.layoutTopbar.topBarBinding.dropdownMenu)
-                val inflater: MenuInflater = popup.menuInflater
-                inflater.inflate(R.menu.topbar_menu_view, popup.menu)
-                popup.show()
-            },
-            onRightButtonClick = {
-                loginLauncher.launch(Intent(this@OnboardingActivity, LoginActivity::class.java))
+        binding.layoutTopbar.setupOnboarding(
+            showMenu = true,
+            showSignUp = true,
+            contract = object : OnboardingTopBarContract {
+                override fun onMenuClicked() {
+                    openMenu()
+                }
+
+                override fun onSignUpClicked() {
+                    navigateToSignUp()
+                }
             }
         )
     }
@@ -110,8 +112,20 @@ class OnboardingActivity : CloneXBaseActivity<OnboardingViewModel, ActivityOnboa
 
     private var loginLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) { }
+            if (result.resultCode == RESULT_OK) { }
         }
+
+    private fun openMenu() {
+        val popup =
+            PopupMenu(this, binding.layoutTopbar.topBarBinding.onboardingLayout.dropdownMenu)
+        val inflater: MenuInflater = popup.menuInflater
+        inflater.inflate(R.menu.topbar_menu_view, popup.menu)
+        popup.show()
+    }
+
+    private fun navigateToSignUp() {
+        loginLauncher.launch(Intent(this@OnboardingActivity, LoginActivity::class.java))
+    }
 
 
     override val viewModelClass: Class<OnboardingViewModel>
