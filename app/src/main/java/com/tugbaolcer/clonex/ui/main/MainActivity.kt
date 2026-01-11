@@ -1,13 +1,12 @@
 package com.tugbaolcer.clonex.ui.main
 
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.tugbaolcer.clonex.R
 import com.tugbaolcer.clonex.base.CloneXBaseActivity
-import com.tugbaolcer.clonex.base.CloneXBaseRecyclerView
 import com.tugbaolcer.clonex.databinding.ActivityMainBinding
-import com.tugbaolcer.clonex.model.GetGenresResponse
 import com.tugbaolcer.clonex.utils.HomeTopBarContract
-import com.tugbaolcer.clonex.utils.ItemDecorationVertical
 import com.tugbaolcer.clonex.utils.NavigationTab
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -21,20 +20,15 @@ class MainActivity : CloneXBaseActivity<MainViewModel, ActivityMainBinding>(), A
     override val layoutResourceId: Int
         get() = R.layout.activity_main
 
-    private val genresAdapter by lazy {
-        object : CloneXBaseRecyclerView<GetGenresResponse.Genre>() {}
-    }
-
     override fun init() {
-
-        setupRecyclerView()
-        retrieveNewData()
 
         setupBottomNavigation()
 
         if (supportFragmentManager.findFragmentById(R.id.fragment_container) == null) {
             navigateTo(NavigationTab.Home)
         }
+
+        observeChipUIState()
 
     }
 
@@ -72,14 +66,26 @@ class MainActivity : CloneXBaseActivity<MainViewModel, ActivityMainBinding>(), A
         }
     }
 
-    private fun setupRecyclerView() {
-        binding.recyclerDummy.apply {
-            adapter = genresAdapter
-            addItemDecoration(ItemDecorationVertical(16))
-        }
-
-        genresAdapter.clickListener = { genre, action ->
-
+    private fun observeChipUIState() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { state ->
+                    when (state) {
+                        is ChipUIState.Home -> {
+                            navigateTo(NavigationTab.Home)
+                        }
+                        is ChipUIState.Series -> {
+                            // Diziler fragmentına yönlendir veya listeyi filtrele
+                        }
+                        is ChipUIState.Movies -> {
+                            // Filmler fragmentına yönlendir veya listeyi filtrele
+                        }
+                        is ChipUIState.Categories -> {
+                            // Kategori fragmentına yönlendir veya listeyi filtrele
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -98,13 +104,7 @@ class MainActivity : CloneXBaseActivity<MainViewModel, ActivityMainBinding>(), A
         )
     }
 
-    override fun retrieveNewData() {
-        viewModel.getGenreMovieList{
-            lifecycleScope.launch {
-                genresAdapter.submitList(it)
-            }
-        }
-    }
+    override fun retrieveNewData() {}
 
     override fun bindingData() {
         binding.vm = viewModel

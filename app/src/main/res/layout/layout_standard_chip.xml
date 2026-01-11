@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="chipText"
+            type="String" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/chip_stroke"
+        app:strokeWidth="1dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/chipText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:paddingHorizontal="16dp"
+            android:text="@{chipText}"
+            android:textColor="@color/nav_text_white"
+            android:textSize="14sp"
+            tools:text="Diziler"
+            tools:background="@color/dark_navy"/>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -15,6 +15,7 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import com.tugbaolcer.clonex.R
+import com.tugbaolcer.clonex.ui.main.ChipUIState
 import com.tugbaolcer.clonex.ui.onboarding.TabOnBoardingViewModel
 
 /**
@@ -128,4 +129,9 @@ fun setCustomEditTextListener(view: CustomEditTextView, listener: InverseBinding
     view.setOnTextChangeListener {
         listener.onChange()
     }
+}
+
+@BindingAdapter("closeButtonVisibility")
+fun setCloseButtonVisibility(view: View, state: ChipUIState) {
+    view.visibility = if (state is ChipUIState.Home) View.GONE else View.VISIBLE
 }

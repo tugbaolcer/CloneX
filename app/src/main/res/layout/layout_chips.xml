@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.tugbaolcer.clonex.ui.main.ChipUIState"/>
+        <variable
+            name="vm"
+            type="com.tugbaolcer.clonex.ui.main.MainViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/chipContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="12dp"
+        tools:background="@color/dark_navy">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@android:color/transparent"
+            android:padding="0dp"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:onClick="@{() -> vm.onCloseClicked()}"
+            app:closeButtonVisibility="@{vm.uiState ?? ChipUIState.Home.INSTANCE}"
+            app:icon="@drawable/ic_close"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="0dp"
+            app:strokeColor="@color/chip_stroke"
+            app:strokeWidth="1dp"
+            app:cornerRadius="20dp"  />
+
+        <include
+            android:id="@+id/chipSeries"
+            layout="@layout/layout_standard_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="@{() -> vm.onSeriesClicked()}"
+            bind:chipText="@{@string/Button_Label_Series}" />
+
+        <include
+            android:id="@+id/chipMovies"
+            layout="@layout/layout_standard_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="@{() -> vm.onMoviesClicked()}"
+            bind:chipText="@{@string/Button_Label_Films}" />
+
+        <include
+            android:id="@+id/chipCategories"
+            layout="@layout/layout_filter_chip_dropdown"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:onClick="@{() -> vm.onCategoriesClicked()}"/>
+
+    </LinearLayout>
+</layout>
