@@ -1,11 +1,14 @@
 package com.tugbaolcer.clonex.ui.main
 
+import androidx.lifecycle.viewModelScope
 import com.tugbaolcer.clonex.base.CloneXBaseViewModel
+import com.tugbaolcer.clonex.model.GetGenresResponse
 import com.tugbaolcer.clonex.network.AppApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed class ChipUIState {
@@ -17,6 +20,9 @@ sealed class ChipUIState {
 
 @HiltViewModel
 class MainViewModel @Inject constructor(val api: AppApi) : CloneXBaseViewModel(api) {
+
+    private val _categoriesState = MutableStateFlow<List<GetGenresResponse.Genre>>(emptyList())
+    val categoriesState = _categoriesState.asStateFlow()
 
     private val _uiState = MutableStateFlow<ChipUIState>(ChipUIState.Home)
     val uiState: StateFlow<ChipUIState> = _uiState.asStateFlow()
@@ -35,5 +41,18 @@ class MainViewModel @Inject constructor(val api: AppApi) : CloneXBaseViewModel(a
 
     fun onCategoriesClicked() {
         _uiState.value = ChipUIState.Categories
+    }
+
+    init {
+        preloadCategories()
+    }
+
+    private fun preloadCategories() {
+        viewModelScope.launch {
+            networkCallAsFlow { api.fetchGenreMovieList() }
+                .collect { result ->
+                    handleApiResult(result, onSuccess = { _categoriesState.value = it.genres })
+                }
+        }
     }
 }

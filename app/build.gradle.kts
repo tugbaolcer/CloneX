@@ -100,6 +100,8 @@ dependencies {
     //Browser
     implementation(libs.androidx.browser)
 
+    implementation(libs.fragment.ktx)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

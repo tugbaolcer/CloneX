@@ -7,13 +7,14 @@
 
         <variable
             name="vm"
-            type="com.tugbaolcer.clonex.ui.categories.CategoriesViewModel" />
+            type="com.tugbaolcer.clonex.ui.main.MainViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_bg_category">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_genres"
@@ -21,14 +22,31 @@
             android:layout_height="0dp"
             android:clipToPadding="false"
             android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingTop="24dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btnClose"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
             tools:itemCount="5"
             tools:listitem="@layout/item_genre_movie_list" />
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnClose"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_circle_white"
+            android:focusable="true"
+            android:src="@drawable/ic_close"
+            android:tint="@color/black"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="24dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

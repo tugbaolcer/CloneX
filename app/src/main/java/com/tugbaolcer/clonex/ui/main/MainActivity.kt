@@ -1,11 +1,13 @@
 package com.tugbaolcer.clonex.ui.main
 
+import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.tugbaolcer.clonex.R
 import com.tugbaolcer.clonex.base.CloneXBaseActivity
 import com.tugbaolcer.clonex.databinding.ActivityMainBinding
+import com.tugbaolcer.clonex.ui.categories.CategoriesBottomSheet
 import com.tugbaolcer.clonex.utils.HomeTopBarContract
 import com.tugbaolcer.clonex.utils.NavigationTab
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,6 +21,9 @@ interface AppNavigator {
 class MainActivity : CloneXBaseActivity<MainViewModel, ActivityMainBinding>(), AppNavigator {
     override val layoutResourceId: Int
         get() = R.layout.activity_main
+
+    private var categoriesSheet: CategoriesBottomSheet? = null
+
 
     override fun init() {
 
@@ -80,13 +85,46 @@ class MainActivity : CloneXBaseActivity<MainViewModel, ActivityMainBinding>(), A
                         is ChipUIState.Movies -> {
                             // Filmler fragmentına yönlendir veya listeyi filtrele
                         }
-                        is ChipUIState.Categories -> {
-                            // Kategori fragmentına yönlendir veya listeyi filtrele
-                        }
+
+                        is ChipUIState.Categories -> { openCategories() }
+
+                        else -> closeCategories()
                     }
                 }
             }
         }
+    }
+
+//    fun openCategories() {
+//        binding.fragmentCategories.visibility  = View.VISIBLE
+//        supportFragmentManager.beginTransaction()
+//            .setCustomAnimations(
+//                android.R.anim.fade_in,
+//                android.R.anim.fade_out,
+//                android.R.anim.fade_in,
+//                android.R.anim.fade_out
+//            )
+//            .replace(
+//                R.id.fragment_categories,
+//                CategoriesFragment.newInstance()
+//            )
+//            .addToBackStack("categories")
+//            .commit()
+//    }
+
+    private fun openCategories() {
+        if (categoriesSheet?.isAdded == true) return
+
+        categoriesSheet = CategoriesBottomSheet()
+        categoriesSheet?.show(
+            supportFragmentManager,
+            "CategoriesBottomSheet"
+        )
+    }
+
+    private fun closeCategories() {
+        categoriesSheet?.dismiss()
+        categoriesSheet = null
     }
 
     override fun initTopBar(title: Int?) {
