@@ -1,6 +1,5 @@
 package com.tugbaolcer.clonex.ui.main
 
-import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -94,23 +93,6 @@ class MainActivity : CloneXBaseActivity<MainViewModel, ActivityMainBinding>(), A
             }
         }
     }
-
-//    fun openCategories() {
-//        binding.fragmentCategories.visibility  = View.VISIBLE
-//        supportFragmentManager.beginTransaction()
-//            .setCustomAnimations(
-//                android.R.anim.fade_in,
-//                android.R.anim.fade_out,
-//                android.R.anim.fade_in,
-//                android.R.anim.fade_out
-//            )
-//            .replace(
-//                R.id.fragment_categories,
-//                CategoriesFragment.newInstance()
-//            )
-//            .addToBackStack("categories")
-//            .commit()
-//    }
 
     private fun openCategories() {
         if (categoriesSheet?.isAdded == true) return
