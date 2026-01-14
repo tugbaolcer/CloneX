@@ -133,5 +133,5 @@ fun setCustomEditTextListener(view: CustomEditTextView, listener: InverseBinding
 
 @BindingAdapter("closeButtonVisibility")
 fun setCloseButtonVisibility(view: View, state: ChipUIState) {
-    view.visibility = if (state is ChipUIState.Home) View.GONE else View.VISIBLE
+    view.visibility = if (state is ChipUIState.Home || state is ChipUIState.Categories) View.GONE else View.VISIBLE
 }
