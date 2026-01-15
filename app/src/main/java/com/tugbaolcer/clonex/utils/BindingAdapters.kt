@@ -8,13 +8,18 @@ import android.text.SpannableString
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.tugbaolcer.clonex.R
+import com.tugbaolcer.clonex.base.CloneXBaseRecyclerView
+import com.tugbaolcer.clonex.base.component.LayoutModel
 import com.tugbaolcer.clonex.ui.main.ChipUIState
 import com.tugbaolcer.clonex.ui.onboarding.TabOnBoardingViewModel
 
@@ -134,4 +139,16 @@ fun setCustomEditTextListener(view: CustomEditTextView, listener: InverseBinding
 @BindingAdapter("closeButtonVisibility")
 fun setCloseButtonVisibility(view: View, state: ChipUIState) {
     view.visibility = if (state is ChipUIState.Home || state is ChipUIState.Categories) View.GONE else View.VISIBLE
+}
+
+
+@BindingAdapter("imageUrl")
+fun loadImage(view: ImageView, url: String?) {
+    url?.let {
+        Glide.with(view.context)
+            .load(it)
+            .placeholder(R.drawable.netflix_logo)
+            .error(R.drawable.netflix_logo)
+            .into(view)
+    }
 }

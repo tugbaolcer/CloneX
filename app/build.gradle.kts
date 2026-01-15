@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
+    implementation(libs.fragment.ktx)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.lottie)
 
@@ -100,7 +101,9 @@ dependencies {
     //Browser
     implementation(libs.androidx.browser)
 
-    implementation(libs.fragment.ktx)
+    //Glide
+    implementation(libs.glide)
+    ksp(libs.glide.compiler)
 
 
     testImplementation(libs.junit)

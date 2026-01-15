@@ -55,7 +55,6 @@ abstract class CloneXBaseFragment<VM : CloneXBaseViewModel, B : ViewDataBinding>
         bindingData()
         init()
         initTopBar()
-        retrieveData()
     }
 
     private fun setupBaseObservers() {

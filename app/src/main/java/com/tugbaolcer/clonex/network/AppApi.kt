@@ -6,10 +6,12 @@ import com.tugbaolcer.clonex.model.GetGenresResponse
 import com.tugbaolcer.clonex.model.GetLoginResponse
 import com.tugbaolcer.clonex.model.GetSessionResponse
 import com.tugbaolcer.clonex.model.GetTokenResponse
+import com.tugbaolcer.clonex.model.GetTrendingAllResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface AppApi {
 
@@ -27,4 +29,9 @@ interface AppApi {
 
     @GET("genre/movie/list")
     suspend fun fetchGenreMovieList(): Response<GetGenresResponse>
+
+    @GET("trending/all/day")
+    suspend fun fetchTrendingAll(
+        @Query("language") language: String = "en-US"
+    ): Response<GetTrendingAllResponse>
 }

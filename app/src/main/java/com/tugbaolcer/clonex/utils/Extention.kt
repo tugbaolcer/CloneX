@@ -1,5 +1,6 @@
 package com.tugbaolcer.clonex.utils
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -39,3 +40,6 @@ fun <T> LifecycleOwner.collectIn(
         }
     }
 }
+
+val Int.toDp: Int
+    get() = (this * Resources.getSystem().displayMetrics.density).toInt()
