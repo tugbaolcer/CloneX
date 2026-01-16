@@ -21,7 +21,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:paddingBottom="32dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -77,7 +77,7 @@
                                 android:layout_height="55dp"
                                 android:layout_weight="1"
                                 android:layout_marginEnd="8dp"
-                                android:text="Oynat"
+                                android:text="@string/Button.Label.Play"
                                 android:textColor="@color/black"
                                 android:insetTop="0dp"
                                 android:insetBottom="0dp"
@@ -93,7 +93,7 @@
                                 android:layout_height="55dp"
                                 android:layout_weight="1"
                                 android:layout_marginStart="8dp"
-                                android:text="Listem"
+                                android:text="@string/Button.Label.MyList"
                                 android:textColor="@color/white"
                                 android:insetTop="0dp"
                                 android:insetBottom="0dp"
@@ -112,70 +112,48 @@
                     android:orientation="vertical"
                     app:layout_constraintTop_toBottomOf="@id/heroContainer">
 
-                    <TextView
-                        style="@style/TextAppearance.Material3.TitleMedium"
-                        android:layout_width="wrap_content"
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/Widget.CloneX.SectionTitle"                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="16dp"
-                        android:paddingTop="24dp"
-                        android:paddingBottom="8dp"
-                        android:text="Bugün Senin İçin Seçtiklerimiz"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
+                        android:text="@string/Common.Label.TrendingList" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvTrending"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="200dp"
                         android:clipToPadding="false"
-                        android:orientation="horizontal"
                         android:paddingHorizontal="12dp"
-                        android:nestedScrollingEnabled="false"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/item_trending_movie_list" />
 
-                    <TextView
-                        style="@style/TextAppearance.Material3.TitleMedium"
-                        android:layout_width="wrap_content"
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/Widget.CloneX.SectionTitle"                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="16dp"
-                        android:paddingTop="24dp"
-                        android:paddingBottom="8dp"
-                        android:text="Filmler"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
+                        android:text="@string/Button.Label.Films" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvMovies"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="200dp"
                         android:clipToPadding="false"
-                        android:orientation="horizontal"
                         android:paddingHorizontal="12dp"
                         android:nestedScrollingEnabled="false"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/item_trending_movie_list"/>
 
-                    <TextView
-                        style="@style/TextAppearance.Material3.TitleMedium"
-                        android:layout_width="wrap_content"
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/Widget.CloneX.SectionTitle"                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="16dp"
-                        android:paddingTop="24dp"
-                        android:paddingBottom="8dp"
-                        android:text="Diziler"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
+                        android:text="@string/Button.Label.Series" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvTv"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="200dp"
                         android:clipToPadding="false"
-                        android:orientation="horizontal"
                         android:paddingHorizontal="12dp"
                         android:nestedScrollingEnabled="false"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/item_trending_movie_list"/>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

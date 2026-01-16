@@ -16,16 +16,13 @@ abstract class CloneXBaseRecyclerView<T : LayoutModel> :
 
     var clickListener: ((T, String) -> Unit)? = null
 
-    // Boilerplate'i azaltmak için ViewHolder generic hale getirildi
     inner class BaseViewHolder(val binding: ViewDataBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: T) {
-            // "obj" ve "clickListener" XML tarafındaki değişken isimleridir
             binding.setVariable(BR.obj, item)
             binding.setVariable(BR.clickListener, clickListener)
 
-            // Alt sınıflar özel bir logic işletmek isterse:
             onBindAdditionalLogic(binding, item, adapterPosition)
 
             binding.executePendingBindings()

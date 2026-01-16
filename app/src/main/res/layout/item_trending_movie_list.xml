@@ -4,8 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="kotlin.jvm.functions.Function2"/>
+        <import type="kotlin.Unit"/>
         <variable
-            name="item"
+            name="clickListener"
+            type="Function2&lt;com.tugbaolcer.clonex.model.GetTrendingAllResponse.TrendingItem, String, Unit>" />
+
+        <variable
+            name="obj"
             type="com.tugbaolcer.clonex.model.GetTrendingAllResponse.TrendingItem" />
     </data>
 
@@ -32,20 +38,8 @@
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
                 android:foreground="?attr/selectableItemBackground"
-                app:imageUrl="@{item.fullImageUrl}"
+                app:imageUrl="@{obj.fullImageUrl}"
                 tools:src="@tools:sample/avatars" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:padding="8dp"
-                android:text="@{item.getDisplayName()}"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:text="Movie Title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

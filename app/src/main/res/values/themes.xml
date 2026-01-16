@@ -45,4 +45,12 @@
     <style name="App.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">#1A4285F4</item>
     </style>
+
+    <style name="Widget.CloneX.SectionTitle" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

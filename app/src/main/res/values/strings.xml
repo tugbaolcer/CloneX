@@ -7,6 +7,8 @@
     <string name="Button.Label.Series">Diziler</string>
     <string name="Button.Label.Films">Filmler</string>
     <string name="Button.Label.Categories">Kategoriler</string>
+    <string name="Button.Label.Play">Oynat</string>
+    <string name="Button.Label.MyList">Listem</string>
 
     <string name="Common.Request.ErrorMessage">Bir hatayla karşılaşıldı</string>
     <string name="Common.Label.Show">Göster</string>
@@ -14,6 +16,7 @@
     <string name="Common.Label.Or">VEYA</string>
     <string name="Common.Label.ForgetPassword">Parolamı Unuttum</string>
     <string name="Common.Label.LoginInfoText">Oturum açma işlemi, robot olmadığınızı kanıtlamak için Google reCAPTCHA ile korunuyor. Daha fazla bilgi</string>
+    <string name="Common.Label.TrendingList">Bugün Senin İçin Seçtiklerimiz</string>
 
     <string name="Input.Label.UserName">Kullanıcı Adı</string>
     <string name="Input.Label.Password">Parola</string>
