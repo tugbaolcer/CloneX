@@ -13,7 +13,8 @@ The design is not a direct copy of Netflix; instead, it takes inspiration from i
 
 <img width="399" height="857" alt="login" src="https://github.com/user-attachments/assets/9de66e90-1ca5-40be-bde3-9a1123b55c29" />
 <img width="398" height="866" alt="onboarding1" src="https://github.com/user-attachments/assets/89a988a0-663c-4482-b562-471b417fd4ba" />
-<img width="396" height="849" alt="Ekran Alıntısı" src="https://github.com/user-attachments/assets/8235b56b-15b8-443a-b46f-726a398a41cd" />
+<img width="398" height="858" alt="homepage" src="https://github.com/user-attachments/assets/afb44c17-54cf-4abc-93bd-190f08bd2e6d" />
+
 
 
 
