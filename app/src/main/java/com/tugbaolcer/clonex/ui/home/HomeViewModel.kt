@@ -1,8 +1,8 @@
 package com.tugbaolcer.clonex.ui.home
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.tugbaolcer.clonex.base.CloneXBaseViewModel
+import com.tugbaolcer.clonex.base.LoadingType
 import com.tugbaolcer.clonex.model.GetTrendingAllResponse
 import com.tugbaolcer.clonex.network.AppApi
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,10 +17,12 @@ class HomeViewModel @Inject constructor(val api: AppApi) : CloneXBaseViewModel(a
     private val _heroItem = MutableStateFlow<GetTrendingAllResponse.TrendingItem?>(null)
     val heroItem = _heroItem.asStateFlow()
 
-    private val _trendingList = MutableStateFlow<List<GetTrendingAllResponse.TrendingItem>>(emptyList())
+    private val _trendingList =
+        MutableStateFlow<List<GetTrendingAllResponse.TrendingItem>>(emptyList())
     val trendingList = _trendingList.asStateFlow()
 
-    private val _movieList = MutableStateFlow<List<GetTrendingAllResponse.TrendingItem>>(emptyList())
+    private val _movieList =
+        MutableStateFlow<List<GetTrendingAllResponse.TrendingItem>>(emptyList())
     val movieList = _movieList.asStateFlow()
 
     private val _tvList = MutableStateFlow<List<GetTrendingAllResponse.TrendingItem>>(emptyList())
@@ -32,6 +34,7 @@ class HomeViewModel @Inject constructor(val api: AppApi) : CloneXBaseViewModel(a
                 api.fetchTrendingAll()
             }.collect { result ->
                 handleApiResult(
+                    loadingType = LoadingType.SHIMMER,
                     apiResult = result,
                     onSuccess = { response ->
                         val items = response.results

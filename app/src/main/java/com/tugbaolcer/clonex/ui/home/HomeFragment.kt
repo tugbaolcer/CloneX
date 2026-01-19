@@ -18,6 +18,9 @@ class HomeFragment: CloneXBaseFragment<HomeViewModel, FragmentHomeBinding>() {
     override val layoutResourceId: Int
         get() = R.layout.fragment_home
 
+    override fun provideShimmerView() = binding.shimmerHome.root
+    override fun provideContentView() = binding.contentContainer
+
     private val trendingListAdapter by lazy {
         object : CloneXBaseRecyclerView<GetTrendingAllResponse.TrendingItem>() {}
     }

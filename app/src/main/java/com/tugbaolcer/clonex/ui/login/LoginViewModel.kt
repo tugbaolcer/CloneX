@@ -74,7 +74,7 @@ class LoginViewModel @Inject constructor(
 
             networkCallAsFlow { api.createLogin(body) }.collect { result ->
                 handleApiResult(
-                    result,
+                    apiResult = result,
                     onSuccess = { data ->
                         createSession(data.requestToken)
                     }
@@ -89,7 +89,7 @@ class LoginViewModel @Inject constructor(
             networkCallAsFlow { api.createSessionId(CreateSessionRequest(requestToken = requestToken)) }
                 .collect { result ->
                     handleApiResult(
-                        result,
+                        apiResult = result,
                         onSuccess = { data ->
                             viewModelScope.launch {
                                 dataStore.saveSessionId(sessionId = data.sessionId)

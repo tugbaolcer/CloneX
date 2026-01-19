@@ -35,6 +35,9 @@ androidxBrowser = "1.8.0"
 #Glide
 glide = "4.16.0"
 
+#Shimmer
+facebook-shimmer = "0.5.0"
+
 #Test
 espresso = "3.7.0"
 
@@ -76,6 +79,9 @@ androidx-browser = { module = "androidx.browser:browser", version.ref = "android
 #Glide
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
+
+#Shimmer
+shimmer-facebook = { group = "com.facebook.shimmer", name = "shimmer", version.ref = "facebook-shimmer" }
 
 
 #Test

@@ -105,6 +105,9 @@ dependencies {
     implementation(libs.glide)
     ksp(libs.glide.compiler)
 
+    //Shimmer
+    implementation(libs.shimmer.facebook)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

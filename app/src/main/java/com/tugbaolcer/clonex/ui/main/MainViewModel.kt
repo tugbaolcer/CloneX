@@ -2,6 +2,7 @@ package com.tugbaolcer.clonex.ui.main
 
 import androidx.lifecycle.viewModelScope
 import com.tugbaolcer.clonex.base.CloneXBaseViewModel
+import com.tugbaolcer.clonex.base.LoadingType
 import com.tugbaolcer.clonex.model.GetGenresResponse
 import com.tugbaolcer.clonex.network.AppApi
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -51,7 +52,9 @@ class MainViewModel @Inject constructor(val api: AppApi) : CloneXBaseViewModel(a
         viewModelScope.launch {
             networkCallAsFlow { api.fetchGenreMovieList() }
                 .collect { result ->
-                    handleApiResult(result, onSuccess = { _categoriesState.value = it.genres })
+                    handleApiResult(
+                        loadingType = LoadingType.NONE,
+                        apiResult = result, onSuccess = { _categoriesState.value = it.genres })
                 }
         }
     }

@@ -28,5 +28,6 @@
     <color name="chip_selected_bg">#2A2F4F</color>
     <color name="chip_text">#E6E8F0</color>
     <color name="chip_stroke">#3A3F55</color>
+    <color name="gray_700">#333333</color>
 
 </resources>

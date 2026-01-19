@@ -14,11 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import com.tugbaolcer.clonex.R
-import com.tugbaolcer.clonex.utils.ProgressDialog
-import com.tugbaolcer.clonex.utils.showErrorAlert
-import kotlinx.coroutines.launch
+import com.tugbaolcer.clonex.utils.LoadingStateDelegate
 
 enum class ScreenMode {
     EDGE_TO_EDGE,
@@ -43,17 +39,28 @@ abstract class CloneXBaseActivity<VM : CloneXBaseViewModel, B : ViewDataBinding>
     abstract fun retrieveNewData()
     abstract fun bindingData()
 
-    private var progressDialog: ProgressDialog? = null
-
     open val screenMode: ScreenMode = ScreenMode.EDGE_TO_EDGE
+
+    open fun provideShimmerView(): View? = null
+    open fun provideContentView(): View? = null
+
+    private val loadingDelegate by lazy {
+        LoadingStateDelegate(
+            lifecycleOwner = this,
+            viewModel = viewModel,
+            contextProvider = { this },
+            shimmerProvider = { provideShimmerView() }
+            ,
+            contentProvider = { provideContentView()}
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, layoutResourceId)
-        progressDialog = ProgressDialog(this)
 
-        observeBaseStates()
+        loadingDelegate.setup()
 
         bindingData()
         init()
@@ -63,35 +70,9 @@ abstract class CloneXBaseActivity<VM : CloneXBaseViewModel, B : ViewDataBinding>
 
     }
 
-    private fun observeBaseStates() {
-        lifecycleScope.launch {
-            viewModel.progressVisibility.collect { isVisible ->
-                if (isVisible) progressDialog?.show()
-                else progressDialog?.dismiss()
-            }
-        }
-
-        lifecycleScope.launch {
-            viewModel.errorMessage.collect { errorMessage ->
-                errorMessage?.let { message ->
-                    showMessageOnRetrieveError(message)
-                    viewModel.clearErrorMessage()
-                }
-            }
-        }
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
-    }
-
-    fun showMessageOnRetrieveError(errorPair: Pair<Int?, String?>) {
-        val errorMessage = when {
-            errorPair.first == 500 -> getString(R.string.Common_Request_ErrorMessage)
-            else -> errorPair.second ?: getString(R.string.Common_Request_ErrorMessage)
-        }
-        showErrorAlert(errorMessage)
     }
 
     private fun setupScreenMode() {
