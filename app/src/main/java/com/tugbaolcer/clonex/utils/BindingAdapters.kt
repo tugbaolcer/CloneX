@@ -152,3 +152,12 @@ fun loadImage(view: ImageView, url: String?) {
             .into(view)
     }
 }
+
+@BindingAdapter("visibleIfTabNotSelected")
+fun View.visibleIfTabNotSelected(state: ChipUIState) {
+    visibility = when (this.id) {
+        R.id.chipSeries -> if (state is ChipUIState.Movies) View.GONE else View.VISIBLE
+        R.id.chipMovies -> if (state is ChipUIState.Series) View.GONE else View.VISIBLE
+        else -> View.VISIBLE
+    }
+}
